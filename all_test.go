@@ -32,7 +32,7 @@ import (
 const benchScale = 1e6
 
 func init() {
-	log.SetFlags(log.Flags() | log.Lshortfile)
+	log.SetFlags(0)
 	isTesting = true
 	use(dieHard, caller, dumpTables2, dumpTables3, dumpFields, dumpFlds, dumpCols, typeof, stypeof)
 }
