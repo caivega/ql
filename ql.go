@@ -19,6 +19,7 @@ import (
 	"time"
 
 	"github.com/cznic/strutil"
+	"github.com/kylelemons/godebug/pretty"
 )
 
 const (
@@ -348,6 +349,7 @@ func (r *whereRset) String() string {
 }
 
 func (r *whereRset) planBinOp(x *binaryOperation) (plan, error) {
+	(&pretty.Config{IncludeUnexported: true}).Print(boundsFromExpr(x))
 	p := r.src
 	ok, cn := isColumnExpression(x.l)
 	if ok && cn == "id()" {
