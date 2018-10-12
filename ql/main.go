@@ -22,6 +22,8 @@
 //
 //	-tables re	If re != "" show the matching table names and exit.
 //
+//  -list show all the table names and exit.
+//
 //	-fld		First row of a query result set will show field names.
 //
 //	statement_list	QL statements to execute.
@@ -90,6 +92,7 @@ type config struct {
 	flds        bool
 	schema      string
 	tables      string
+	list        bool
 	time        bool
 	help        bool
 	interactive bool
@@ -100,14 +103,17 @@ func (c *config) parse() {
 	flds := flag.Bool("fld", false, "Show recordset's field names.")
 	schema := flag.String("schema", "", "If non empty, show the CREATE statements of matching tables and exit.")
 	tables := flag.String("tables", "", "If non empty, list matching table names and exit.")
+	listEnabled := flag.Bool("list", false, "List all table names")
 	time := flag.Bool("t", false, "Measure and report time to execute the statement(s) including DB create/open/close.")
 	help := flag.Bool("h", false, "Shows this help text.")
 	interactive := flag.Bool("i", false, "runs in interactive mode")
 	flag.Parse()
+
 	c.flds = *flds
 	c.db = *db
 	c.schema = *schema
 	c.tables = *tables
+	c.list = *listEnabled
 	c.time = *time
 	c.help = *help
 	c.interactive = *interactive
@@ -119,30 +125,6 @@ func do() (err error) {
 	if cfg.help {
 		flag.PrintDefaults()
 		return nil
-	}
-	if flag.NArg() == 0 && !cfg.interactive {
-
-		// Somehow we expect input to the ql tool.
-		// This will block trying to read input from stdin
-		b, err := ioutil.ReadAll(os.Stdin)
-		if err != nil || len(b) == 0 {
-			flag.PrintDefaults()
-			return nil
-		}
-		db, err := ql.OpenFile(cfg.db, &ql.Options{CanCreate: true})
-		if err != nil {
-			return err
-		}
-		defer func() {
-			ec := db.Close()
-			switch {
-			case ec != nil && err != nil:
-				log.Println(ec)
-			case ec != nil:
-				err = ec
-			}
-		}()
-		return run(cfg, bufio.NewWriter(os.Stdout), string(b), db)
 	}
 	db, err := ql.OpenFile(cfg.db, &ql.Options{CanCreate: true})
 	if err != nil {
@@ -174,13 +156,9 @@ func do() (err error) {
 				o.Flush()
 			}
 		}
-		return nil
+	} else {
+		return run(cfg, o, "", db)
 	}
-	src, err := readSrc(cfg.interactive, r)
-	if err != nil {
-		return err
-	}
-	return run(cfg, o, src, db)
 }
 
 func readSrc(i bool, in *bufio.Reader) (string, error) {
@@ -212,7 +190,43 @@ func run(cfg *config, o *bufio.Writer, src string, db *ql.DB) (err error) {
 		src = strings.TrimSpace(src)
 		if strings.HasPrefix(src, "\\") ||
 			strings.HasPrefix(src, ".") {
-			switch src {
+			cmds := strings.Split(src, " ")
+			switch cmds[0] {
+			case "\\show", ".show":
+				table := cmds[1]
+				src = "select * from " + table
+			case "\\desc", ".desc":
+				table := cmds[1]
+
+				nfo, err := db.Info()
+				if err != nil {
+					return err
+				}
+
+				r := []string{}
+				for _, ti := range nfo.Tables {
+					if table == ti.Name {
+						for _, ci := range ti.Columns {
+							r = append(r, fmt.Sprintf("%s\t%s", ci.Type, ci.Name))
+						}
+					}
+				}
+				fmt.Fprintln(o, strings.Join(r, "\n"))
+				return nil
+			case "\\list", ".list":
+				nfo, err := db.Info()
+				if err != nil {
+					return err
+				}
+
+				tables := []string{}
+				for _, ti := range nfo.Tables {
+					tables = append(tables, ti.Name)
+					fmt.Println(ti.Name)
+				}
+				sort.Strings(tables)
+				fmt.Fprintln(o, strings.Join(tables, "\n"))
+				return nil
 			case "\\clear", ".clear":
 				switch runtime.GOOS {
 				case "darwin", "linux":
@@ -289,6 +303,22 @@ func run(cfg *config, o *bufio.Writer, src string, db *ql.DB) (err error) {
 		if len(r) != 0 {
 			fmt.Fprintln(o, strings.Join(r, "\n"))
 		}
+		return nil
+	}
+
+	if cfg.list {
+		nfo, err := db.Info()
+		if err != nil {
+			return err
+		}
+
+		tables := []string{}
+		for _, ti := range nfo.Tables {
+			tables = append(tables, ti.Name)
+			fmt.Println(ti.Name)
+		}
+		sort.Strings(tables)
+		fmt.Fprintln(o, strings.Join(tables, "\n"))
 		return nil
 	}
 
