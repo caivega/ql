@@ -19,9 +19,9 @@ import (
 	"sync"
 	"time"
 
+	"github.com/caivega/ql/vendored/github.com/camlistore/go4/lock"
 	"github.com/cznic/lldb"
 	"github.com/cznic/mathutil"
-	"github.com/cznic/ql/vendored/github.com/camlistore/go4/lock"
 )
 
 const (

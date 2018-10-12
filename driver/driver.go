@@ -16,7 +16,7 @@ A skeleton program using ql/driver.
 	import (
 		"database/sql"
 
-		_ "github.com/cznic/ql/driver"
+		_ "github.com/caivega/ql/driver"
 	)
 
 	func main() {
@@ -46,14 +46,14 @@ Links
 
 Referenced from above:
 
-  [0]: http://godoc.org/github.com/cznic/ql
+  [0]: http://godoc.org/github.com/caivega/ql
   [1]: http://golang.org/pkg/database/sql/
   [2]: http://golang.org/pkg/database/sql/#Open
   [3]: http://golang.org/pkg/database/sql/driver
 */
 package driver
 
-import "github.com/cznic/ql"
+import "github.com/caivega/ql"
 
 func init() {
 	ql.RegisterDriver()

@@ -2065,7 +2065,7 @@ func dumpFields(f []*fld) string {
 	return strings.Join(a, ", ")
 }
 
-func TestIssue50(t *testing.T) { // https://github.com/cznic/ql/issues/50
+func TestIssue50(t *testing.T) { // https://github.com/caivega/ql/issues/50
 	if testing.Short() {
 		t.Skip("skipping test in short mode.")
 	}
@@ -3386,7 +3386,7 @@ func TestIssue109(t *testing.T) {
 	(issue109{T: t}).test(true)
 }
 
-// https://github.com/cznic/ql/issues/142
+// https://github.com/caivega/ql/issues/142
 func TestIssue142(t *testing.T) {
 	cwd, err := os.Getwd()
 	if err != nil {
@@ -3462,7 +3462,7 @@ func TestTokenize(t *testing.T) {
 }
 
 // Both of the UPDATEs _should_ work but the 2nd one results in a _type missmatch_ error at the time of writing.
-// see https://github.com/cznic/ql/issues/190
+// see https://github.com/caivega/ql/issues/190
 func TestIssue190(t *testing.T) {
 	RegisterMemDriver()
 	db, err := sql.Open("ql-mem", "mem.test")
@@ -3926,7 +3926,7 @@ func TestBlobCompare(t *testing.T) {
 	}
 }
 
-// https://github.com/cznic/ql/issues/195
+// https://github.com/caivega/ql/issues/195
 func TestIssue195(t *testing.T) {
 	db, err := OpenMem()
 	if err != nil {

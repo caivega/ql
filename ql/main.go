@@ -7,7 +7,7 @@
 //
 // Installation:
 //
-//	$ go get github.com/cznic/ql/ql
+//	$ go get github.com/caivega/ql/ql
 //
 // Usage:
 //
@@ -63,7 +63,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cznic/ql"
+	"github.com/caivega/ql"
 )
 
 func str(data []interface{}) string {

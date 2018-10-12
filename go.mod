@@ -1,4 +1,4 @@
-module github.com/cznic/ql
+module github.com/caivega/ql
 
 require (
 	github.com/cznic/b v0.0.0-20180115125044-35e9bbe41f07

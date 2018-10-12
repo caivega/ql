@@ -5153,7 +5153,7 @@ COMMIT;
 SELECT * FROM t;
 ||does not exist
 
--- 478 // https://github.com/cznic/ql/issues/23
+-- 478 // https://github.com/caivega/ql/issues/23
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b string, t time);
 	INSERT INTO t VALUES (1, "a", parseTime("Jan 2, 2006 at 3:04pm (MST)", "Jan 12, 2014 at 6:26pm (CET)"));
@@ -5165,7 +5165,7 @@ SELECT a, b, formatTime(timeIn(t, "UTC"), "2006-01-02 15:04:05.999999999 -0700")
 [2 b 2014-01-12 17:27:00 +0000]
 [1 hello 2014-01-12 17:26:00 +0000]
 
--- 479 // https://github.com/cznic/ql/issues/23
+-- 479 // https://github.com/caivega/ql/issues/23
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b string, t time);
 	INSERT INTO t VALUES (1, "a", parseTime("Jan 2, 2006 at 3:04pm (MST)", "Jan 12, 2014 at 6:26pm (CET)"));
@@ -5180,7 +5180,7 @@ SELECT a, b, formatTime(timeIn(t, "UTC"), "2006-01-02 15:04:05.999999999 -0700")
 [2 b 2014-01-12 17:27:00 +0000]
 [1 hello 2014-01-12 17:28:00 +0000]
 
--- 480 // https://github.com/cznic/ql/issues/23
+-- 480 // https://github.com/caivega/ql/issues/23
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b string, d duration);
 	INSERT INTO t VALUES (1, "a", duration("1m"));
@@ -5192,7 +5192,7 @@ SELECT * FROM t;
 [2 b 2m0s]
 [1 hello 1m0s]
 
--- 481 // https://github.com/cznic/ql/issues/23
+-- 481 // https://github.com/caivega/ql/issues/23
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b string, d duration);
 	INSERT INTO t VALUES (1, "a", duration("1m"));
@@ -5207,7 +5207,7 @@ SELECT * FROM t;
 [2 b 2m0s]
 [1 hello 3m0s]
 
--- 482 // https://github.com/cznic/ql/issues/24
+-- 482 // https://github.com/caivega/ql/issues/24
 BEGIN TRANSACTION;
 	CREATE TABLE t (c complex128);
 	INSERT INTO t VALUES
@@ -7375,7 +7375,7 @@ ORDER BY c.Ordinal;
 [u 3 t]
 [u 4 d]
 
--- 636 // https://github.com/cznic/ql/issues/36
+-- 636 // https://github.com/caivega/ql/issues/36
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int, s string);
 	INSERT INTO t VALUES (1, "test");
@@ -7384,7 +7384,7 @@ SELECT * FROM t WHERE s == "test";
 |"i", "s"
 [1 test]
 
--- 637 // https://github.com/cznic/ql/issues/36
+-- 637 // https://github.com/caivega/ql/issues/36
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int, s string);
 	INSERT INTO t VALUES (1, "test");
@@ -7394,7 +7394,7 @@ SELECT * FROM t WHERE s == "test";
 |"i", "s"
 [1 test]
 
--- 638 // https://github.com/cznic/ql/issues/37
+-- 638 // https://github.com/caivega/ql/issues/37
 BEGIN TRANSACTION;
 	CREATE TABLE artist (id int64, name string);
 	CREATE TABLE data_types (id int64, _uint int64, _uint8 int64, _uint16
@@ -7408,7 +7408,7 @@ SELECT * FROM __Table ORDER BY Name; // Must sort, map range is not deterministi
 [artist CREATE TABLE artist (id int64, name string);]
 [data_types CREATE TABLE data_types (id int64, _uint int64, _uint8 int64, _uint16 int64, _uint32 int64, _uint64 int64, _int int64, _int8 int64, _int16 int64, _int32 int64, _int64 int64, _float32 float32, _float64 float64, _bool bool, _string string, _date time, _time time);]
 
--- 639 // https://github.com/cznic/ql/issues/37
+-- 639 // https://github.com/caivega/ql/issues/37
 BEGIN TRANSACTION;
 	CREATE TABLE artist (id int64, name string);
 	CREATE TABLE data_types (id int64, _uint int64, _uint8 int64, _uint16
@@ -7421,7 +7421,7 @@ SELECT * FROM __Table WHERE Name == "artist";
 |"Name", "Schema"
 [artist CREATE TABLE artist (id int64, name string);]
 
--- 640 // https://github.com/cznic/ql/issues/37
+-- 640 // https://github.com/caivega/ql/issues/37
 BEGIN TRANSACTION;
 	CREATE TABLE artist (id int64, name string);
 	CREATE TABLE data_types (id int64, _uint int64, _uint8 int64, _uint16
@@ -7452,7 +7452,7 @@ SELECT * FROM __Column ORDER BY TableName, Ordinal;
 [data_types 16 _date time]
 [data_types 17 _time time]
 
--- 641 // https://github.com/cznic/ql/issues/37
+-- 641 // https://github.com/caivega/ql/issues/37
 BEGIN TRANSACTION;
 	CREATE TABLE artist (id int64, name string);
 	CREATE TABLE data_types (id int64, _uint int64, _uint8 int64, _uint16
@@ -7542,28 +7542,28 @@ SELECT * FROM t, u WHERE u.y < 60 && t.k < 7;
 [4 5 6 10 20 30]
 [4 5 6 40 50 60]
 
--- 646 // https://github.com/cznic/ql/issues/41
+-- 646 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 COMMIT;
 SELECT * FROM t OFFSET -1; // no rows -> not evaluated
 |"i"
 
--- 647 // https://github.com/cznic/ql/issues/41
+-- 647 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 COMMIT;
 SELECT * FROM t OFFSET 0; // no rows -> not evaluated
 |"i"
 
--- 648 // https://github.com/cznic/ql/issues/41
+-- 648 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 COMMIT;
 SELECT * FROM t OFFSET 1; // no rows -> not evaluated
 |"i"
 
--- 649 // https://github.com/cznic/ql/issues/41
+-- 649 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7571,7 +7571,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() OFFSET -1;
 ||invalid .* -1 .*must.* non-negative
 
--- 650 // https://github.com/cznic/ql/issues/41
+-- 650 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7581,7 +7581,7 @@ SELECT * FROM t ORDER BY id() OFFSET 0;
 [42]
 [24]
 
--- 651 // https://github.com/cznic/ql/issues/41
+-- 651 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7590,7 +7590,7 @@ SELECT * FROM t ORDER BY id() OFFSET 1;
 |"i"
 [24]
 
--- 652 // https://github.com/cznic/ql/issues/41
+-- 652 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7598,28 +7598,28 @@ COMMIT;
 SELECT * FROM t ORDER BY id() OFFSET 2;
 |"i"
 
--- 653 // https://github.com/cznic/ql/issues/41
+-- 653 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT -1; // no rows -> not evaluated
 |"i"
 
--- 654 // https://github.com/cznic/ql/issues/41
+-- 654 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 0; // no rows -> not evaluated
 |"i"
 
--- 655 // https://github.com/cznic/ql/issues/41
+-- 655 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 1; // no rows -> not evaluated
 |"i"
 
--- 656 // https://github.com/cznic/ql/issues/41
+-- 656 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7627,7 +7627,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT -1;
 ||invalid .* -1 .*must.* non-negative
 
--- 657 // https://github.com/cznic/ql/issues/41
+-- 657 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7635,7 +7635,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 0;
 |"i"
 
--- 658 // https://github.com/cznic/ql/issues/41
+-- 658 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7644,7 +7644,7 @@ SELECT * FROM t ORDER BY id() LIMIT 1;
 |"i"
 [42]
 
--- 659 // https://github.com/cznic/ql/issues/41
+-- 659 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7654,7 +7654,7 @@ SELECT * FROM t ORDER BY id() LIMIT 2;
 [42]
 [24]
 
--- 660 // https://github.com/cznic/ql/issues/41
+-- 660 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7664,7 +7664,7 @@ SELECT * FROM t ORDER BY id() LIMIT 3;
 [42]
 [24]
 
--- 661 // https://github.com/cznic/ql/issues/41
+-- 661 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7672,7 +7672,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 0 OFFSET 0;
 |"i"
 
--- 662 // https://github.com/cznic/ql/issues/41
+-- 662 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7680,7 +7680,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 0 OFFSET 1;
 |"i"
 
--- 663 // https://github.com/cznic/ql/issues/41
+-- 663 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7688,7 +7688,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 0 OFFSET 2;
 |"i"
 
--- 664 // https://github.com/cznic/ql/issues/41
+-- 664 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7696,7 +7696,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 0 OFFSET 3;
 |"i"
 
--- 665 // https://github.com/cznic/ql/issues/41
+-- 665 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7705,7 +7705,7 @@ SELECT * FROM t ORDER BY id() LIMIT 1 OFFSET 0;
 |"i"
 [42]
 
--- 666 // https://github.com/cznic/ql/issues/41
+-- 666 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7714,7 +7714,7 @@ SELECT * FROM t ORDER BY id() LIMIT 1 OFFSET 1;
 |"i"
 [24]
 
--- 667 // https://github.com/cznic/ql/issues/41
+-- 667 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7722,7 +7722,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 1 OFFSET 2;
 |"i"
 
--- 668 // https://github.com/cznic/ql/issues/41
+-- 668 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7730,7 +7730,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 1 OFFSET 3;
 |"i"
 
--- 669 // https://github.com/cznic/ql/issues/41
+-- 669 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7740,7 +7740,7 @@ SELECT * FROM t ORDER BY id() LIMIT 2 OFFSET 0;
 [42]
 [24]
 
--- 670 // https://github.com/cznic/ql/issues/41
+-- 670 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7749,7 +7749,7 @@ SELECT * FROM t ORDER BY id() LIMIT 2 OFFSET 1;
 |"i"
 [24]
 
--- 671 // https://github.com/cznic/ql/issues/41
+-- 671 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7757,7 +7757,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 2 OFFSET 2;
 |"i"
 
--- 672 // https://github.com/cznic/ql/issues/41
+-- 672 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7765,7 +7765,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 2 OFFSET 3;
 |"i"
 
--- 673 // https://github.com/cznic/ql/issues/41
+-- 673 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7775,7 +7775,7 @@ SELECT * FROM t ORDER BY id() LIMIT 3 OFFSET 0;
 [42]
 [24]
 
--- 674 // https://github.com/cznic/ql/issues/41
+-- 674 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7784,7 +7784,7 @@ SELECT * FROM t ORDER BY id() LIMIT 3 OFFSET 1;
 |"i"
 [24]
 
--- 675 // https://github.com/cznic/ql/issues/41
+-- 675 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7792,7 +7792,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 3 OFFSET 2;
 |"i"
 
--- 676 // https://github.com/cznic/ql/issues/41
+-- 676 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42), (24);
@@ -7800,7 +7800,7 @@ COMMIT;
 SELECT * FROM t ORDER BY id() LIMIT 3 OFFSET 3;
 |"i"
 
--- 677 // https://github.com/cznic/ql/issues/41
+-- 677 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(1), (2), (3);
@@ -7819,7 +7819,7 @@ ORDER BY a.i, b.i;
 [3 20]
 [3 30]
 
--- 678 // https://github.com/cznic/ql/issues/41
+-- 678 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(1), (2), (3);
@@ -7836,7 +7836,7 @@ ORDER BY a.i, b.i;
 [3 20]
 [3 30]
 
--- 679 // https://github.com/cznic/ql/issues/41
+-- 679 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(1), (2), (3);
@@ -7851,7 +7851,7 @@ ORDER BY a.i, b.i;
 [2 10]
 [3 10]
 
--- 680 // https://github.com/cznic/ql/issues/41
+-- 680 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(1), (2), (3);
@@ -7866,7 +7866,7 @@ ORDER BY a.i, b.i;
 [2 20]
 [3 20]
 
--- 681 // https://github.com/cznic/ql/issues/41
+-- 681 // https://github.com/caivega/ql/issues/41
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(1), (2), (3);
@@ -7881,7 +7881,7 @@ LIMIT 1;
 |"a.i", "b.i"
 [2 20]
 
--- 682 // https://github.com/cznic/ql/issues/42
+-- 682 // https://github.com/caivega/ql/issues/42
 BEGIN TRANSACTION;
   DROP TABLE IF EXISTS fibonacci;
   CREATE TABLE fibonacci(
@@ -7908,7 +7908,7 @@ SELECT count(1) AS total FROM fibonacci WHERE input >= 5 && input <= 7 OR input 
 |"total"
 [4]
 
--- 683 // https://github.com/cznic/ql/issues/42
+-- 683 // https://github.com/caivega/ql/issues/42
 BEGIN TRANSACTION;
   DROP TABLE IF EXISTS fibonacci;
   CREATE TABLE fibonacci(
@@ -7936,7 +7936,7 @@ SELECT * FROM fibonacci WHERE input >= 5 && input <= 7 OR input == 3 ORDER BY in
 [6 8]
 [5 5]
 
--- 684 // https://github.com/cznic/ql/issues/42
+-- 684 // https://github.com/caivega/ql/issues/42
 BEGIN TRANSACTION;
   DROP TABLE IF EXISTS fibonacci;
   CREATE TABLE fibonacci(
@@ -7969,7 +7969,7 @@ SELECT * FROM fibonacci ORDER BY input;
 [8 21]
 [9 34]
 
--- 685 // https://github.com/cznic/ql/issues/42
+-- 685 // https://github.com/caivega/ql/issues/42
 BEGIN TRANSACTION;
   DROP TABLE IF EXISTS fibonacci;
   CREATE TABLE fibonacci(
@@ -8004,7 +8004,7 @@ SELECT * FROM fibonacci ORDER BY input;
 [8 21]
 [9 34]
 
--- 686 // https://github.com/cznic/ql/issues/42
+-- 686 // https://github.com/caivega/ql/issues/42
 BEGIN TRANSACTION;
   DROP TABLE IF EXISTS fibonacci;
   CREATE TABLE fibonacci(
@@ -8033,7 +8033,7 @@ SELECT count() AS total FROM fibonacci WHERE input >= 5 && input <= 7 OR input =
 |"total"
 [0]
 
--- 687 // https://github.com/cznic/ql/issues/42
+-- 687 // https://github.com/caivega/ql/issues/42
 BEGIN TRANSACTION;
   DROP TABLE IF EXISTS fibonacci;
   CREATE TABLE fibonacci(
@@ -8318,7 +8318,7 @@ SELECT * FROM t ORDER BY i;
 [1]
 [3]
 
--- 710 // https://github.com/cznic/ql/issues/43
+-- 710 // https://github.com/caivega/ql/issues/43
 SELECT Name, Unique FROM __Index;
 ||expected .*Field
 
@@ -8521,7 +8521,7 @@ ORDER BY LastName;
 [Smith 34]
 [Williams <nil>]
 
--- 728 // https://github.com/cznic/ql/issues/49
+-- 728 // https://github.com/caivega/ql/issues/49
 BEGIN TRANSACTION;
 	CREATE TABLE IF NOT EXISTS t (username string, departname string, created time, detail_id int, height float64, avatar blob, is_man bool);
 	CREATE UNIQUE INDEX UQE_userinfo_username ON t (username);
@@ -8539,7 +8539,7 @@ COMMIT;
 SELECT * FROM t;
 |"username", "departname", "created", "detail_id", "height", "avatar", "is_man"
 
--- 729 // https://github.com/cznic/ql/issues/49
+-- 729 // https://github.com/caivega/ql/issues/49
 BEGIN TRANSACTION;
 	CREATE TABLE IF NOT EXISTS t (username string, departname string, created time, detail_id int, height float64, avatar blob, is_man bool);
 	CREATE UNIQUE INDEX UQE_userinfo_username ON t (username);
@@ -8557,7 +8557,7 @@ COMMIT;
 SELECT * FROM t;
 |"username", "departname", "created", "detail_id", "height", "avatar", "is_man"
 
--- 730 // https://github.com/cznic/ql/issues/49
+-- 730 // https://github.com/caivega/ql/issues/49
 BEGIN TRANSACTION;
 	CREATE TABLE IF NOT EXISTS t (username string, departname string, created time, detail_id int, height float64, avatar blob, is_man bool);
 	CREATE UNIQUE INDEX UQE_userinfo_username ON t (username);
@@ -8575,7 +8575,7 @@ COMMIT;
 SELECT * FROM t;
 |"username", "departname", "created", "detail_id", "height", "avatar", "is_man"
 
--- 731 // https://github.com/cznic/ql/issues/49
+-- 731 // https://github.com/caivega/ql/issues/49
 BEGIN TRANSACTION;
 	CREATE TABLE IF NOT EXISTS t (username string, departname string, created time, detail_id int, height float64, avatar blob, is_man bool);
 	CREATE UNIQUE INDEX UQE_userinfo_username ON t (username);
@@ -8593,7 +8593,7 @@ COMMIT;
 SELECT * FROM t;
 |"username", "departname", "created", "detail_id", "height", "avatar", "is_man"
 
--- 732 // https://github.com/cznic/ql/issues/49
+-- 732 // https://github.com/caivega/ql/issues/49
 BEGIN TRANSACTION;
 	CREATE TABLE IF NOT EXISTS t (username string, departname string, created time, detail_id int, height float64, avatar blob, is_man bool);
 	CREATE UNIQUE INDEX UQE_userinfo_username ON t (username);
@@ -8620,7 +8620,7 @@ SELECT id() IN (SELECT id() FROM t WHERE username == "2xiaolunwen"), username ==
 |"", "", ""
 [true true true]
 
--- 733 // https://github.com/cznic/ql/issues/49
+-- 733 // https://github.com/caivega/ql/issues/49
 BEGIN TRANSACTION;
 	CREATE TABLE IF NOT EXISTS t (username string, departname string, created time, detail_id int, height float64, avatar blob, is_man bool);
 	CREATE UNIQUE INDEX UQE_userinfo_username ON t (username);
@@ -8647,7 +8647,7 @@ SELECT id() IN (SELECT id() FROM t WHERE username == "xiaolunwen"), username == 
 |"", "", ""
 [true true true]
 
--- 734 // https://github.com/cznic/ql/issues/51
+-- 734 // https://github.com/caivega/ql/issues/51
 BEGIN TRANSACTION;
 	CREATE TABLE IF NOT EXISTS no_id_user (user string, remain int, total int);
 	CREATE UNIQUE INDEX UQE_no_id_user_user ON no_id_user (user);
@@ -8750,7 +8750,7 @@ SELECT * FROM
 [3 20]
 [3 30]
 
--- 742 // https://github.com/cznic/ql/pull/65
+-- 742 // https://github.com/caivega/ql/pull/65
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES
@@ -8761,7 +8761,7 @@ SELECT max(t) as T FROM t;
 |"T"
 [<nil>]
 
--- 743 // https://github.com/cznic/ql/pull/65
+-- 743 // https://github.com/caivega/ql/pull/65
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES
@@ -8773,7 +8773,7 @@ SELECT max(t) as T FROM t;
 |"T"
 [<nil>]
 
--- 744 // https://github.com/cznic/ql/pull/65
+-- 744 // https://github.com/caivega/ql/pull/65
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES
@@ -8785,7 +8785,7 @@ SELECT max(t) as T FROM t;
 |"T"
 [2014-08-08 14:05:11 +0000 UTC]
 
--- 745 // https://github.com/cznic/ql/pull/65
+-- 745 // https://github.com/caivega/ql/pull/65
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES
@@ -8797,7 +8797,7 @@ SELECT max(t) as T FROM t;
 |"T"
 [2014-08-08 14:05:11 +0000 UTC]
 
--- 746 // https://github.com/cznic/ql/pull/65
+-- 746 // https://github.com/caivega/ql/pull/65
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES
@@ -8809,7 +8809,7 @@ SELECT max(t) as T FROM t;
 |"T"
 [2014-08-08 14:05:12 +0000 UTC]
 
--- 747 // https://github.com/cznic/ql/pull/65
+-- 747 // https://github.com/caivega/ql/pull/65
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES
@@ -8821,7 +8821,7 @@ SELECT max(t) as T FROM t;
 |"T"
 [2014-08-08 14:05:12 +0000 UTC]
 
--- 748 // https://github.com/cznic/ql/pull/65
+-- 748 // https://github.com/caivega/ql/pull/65
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES
@@ -8832,7 +8832,7 @@ SELECT min(t) as T FROM t;
 |"T"
 [<nil>]
 
--- 749 // https://github.com/cznic/ql/pull/65
+-- 749 // https://github.com/caivega/ql/pull/65
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES
@@ -8844,7 +8844,7 @@ SELECT min(t) as T FROM t;
 |"T"
 [<nil>]
 
--- 750 // https://github.com/cznic/ql/pull/65
+-- 750 // https://github.com/caivega/ql/pull/65
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES
@@ -8856,7 +8856,7 @@ SELECT min(t) as T FROM t;
 |"T"
 [2014-08-08 14:05:11 +0000 UTC]
 
--- 751 // https://github.com/cznic/ql/pull/65
+-- 751 // https://github.com/caivega/ql/pull/65
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES
@@ -8868,7 +8868,7 @@ SELECT min(t) as T FROM t;
 |"T"
 [2014-08-08 14:05:11 +0000 UTC]
 
--- 752 // https://github.com/cznic/ql/pull/65
+-- 752 // https://github.com/caivega/ql/pull/65
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES
@@ -8880,7 +8880,7 @@ SELECT min(t) as T FROM t;
 |"T"
 [2014-08-08 14:05:11 +0000 UTC]
 
--- 753 // https://github.com/cznic/ql/pull/65
+-- 753 // https://github.com/caivega/ql/pull/65
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES
@@ -8892,7 +8892,7 @@ SELECT min(t) as T FROM t;
 |"T"
 [2014-08-08 14:05:11 +0000 UTC]
 
--- 754 // https://github.com/cznic/ql/issues/68
+-- 754 // https://github.com/caivega/ql/issues/68
 BEGIN TRANSACTION;
 	CREATE TABLE department (Name string);
 	INSERT INTO department (Name) VALUES ("small"), ("large"), ("medium");
@@ -9095,7 +9095,7 @@ WHERE s+"quxx" LIKE "qux"+"$"
 ORDER BY id();
 |"", "s"
 
--- 765 // https://github.com/cznic/ql/issues/75
+-- 765 // https://github.com/caivega/ql/issues/75
 BEGIN TRANSACTION;
 	CREATE TABLE foo (i int);
 	INSERT INTO foo VALUES (10), (20);
@@ -9113,7 +9113,7 @@ ORDER BY foo.ID;
 [1 10 1 ten]
 [2 20 2 twenty]
 
--- 766 // https://github.com/cznic/ql/issues/75
+-- 766 // https://github.com/caivega/ql/issues/75
 BEGIN TRANSACTION;
 	CREATE TABLE foo (i int);
 	INSERT INTO foo VALUES (10), (20);
@@ -9129,7 +9129,7 @@ ORDER BY id(foo);
 [10 1 ten]
 [20 2 twenty]
 
--- 767 // https://github.com/cznic/ql/issues/81
+-- 767 // https://github.com/caivega/ql/issues/81
 BEGIN TRANSACTION;
 	CREATE TABLE t (name string, mail string);
 	INSERT INTO t VALUES
@@ -9147,7 +9147,7 @@ WHERE name == "b" AND mail == "bar@example.com";
 |"name", "mail"
 [b bar@example.com]
 
--- 768 // https://github.com/cznic/ql/issues/81
+-- 768 // https://github.com/caivega/ql/issues/81
 BEGIN TRANSACTION;
 	CREATE TABLE t (name string, mail string);
 	INSERT INTO t VALUES
@@ -9165,7 +9165,7 @@ WHERE name == "b" and mail == "bar@example.com";
 |"name", "mail"
 [b bar@example.com]
 
--- 769 // https://github.com/cznic/ql/issues/81
+-- 769 // https://github.com/caivega/ql/issues/81
 BEGIN TRANSACTION;
 	CREATE TABLE t (name string, mail string);
 	INSERT INTO t VALUES
@@ -9185,7 +9185,7 @@ ORDER BY name;
 [b bar@example.com]
 [e bar@example.com]
 
--- 770 // https://github.com/cznic/ql/issues/81
+-- 770 // https://github.com/caivega/ql/issues/81
 BEGIN TRANSACTION;
 	CREATE TABLE t (name string, mail string);
 	INSERT INTO t VALUES
@@ -9205,7 +9205,7 @@ ORDER BY name;
 [b bar@example.com]
 [e bar@example.com]
 
--- 771 // https://github.com/cznic/ql/issues/72
+-- 771 // https://github.com/caivega/ql/issues/72
 BEGIN TRANSACTION;
 	CREATE TABLE tableA (i int);
 	INSERT INTO tableA VALUES
@@ -9226,7 +9226,7 @@ SELECT id(), i FROM tableA WHERE id() IN (SELECT idA FROM tableB) ORDER BY id();
 [4 14]
 [6 16]
 
--- 772 // https://github.com/cznic/ql/issues/72
+-- 772 // https://github.com/caivega/ql/issues/72
 BEGIN TRANSACTION;
 	CREATE TABLE tableA (i int);
 	INSERT INTO tableA VALUES
@@ -9247,7 +9247,7 @@ SELECT id(), i FROM tableA WHERE id() NOT IN (SELECT idA FROM tableB) ORDER BY i
 [3 13]
 [5 15]
 
--- 773 // https://github.com/cznic/ql/issues/72
+-- 773 // https://github.com/caivega/ql/issues/72
 BEGIN TRANSACTION;
 	CREATE TABLE tableA (i int);
 	INSERT INTO tableA VALUES
@@ -9269,7 +9269,7 @@ SELECT id(), i FROM tableA ORDER BY id();
 [3 13]
 [5 15]
 
--- 774 // https://github.com/cznic/ql/issues/72
+-- 774 // https://github.com/caivega/ql/issues/72
 BEGIN TRANSACTION;
 	CREATE TABLE tableA (i int);
 	INSERT INTO tableA VALUES
@@ -9291,7 +9291,7 @@ SELECT id(), i FROM tableA ORDER BY id();
 [4 14]
 [6 16]
 
--- 775 // https://github.com/cznic/ql/issues/72, coerce
+-- 775 // https://github.com/caivega/ql/issues/72, coerce
 BEGIN TRANSACTION;
 	CREATE TABLE tableA (i int);
 	INSERT INTO tableA VALUES
@@ -9310,7 +9310,7 @@ COMMIT;
 SELECT id(), i FROM tableA ORDER BY id();
 |"", "i"
 
--- 776 // https://github.com/cznic/ql/issues/72, coerce
+-- 776 // https://github.com/caivega/ql/issues/72, coerce
 BEGIN TRANSACTION;
 	CREATE TABLE tableA (i int);
 	INSERT INTO tableA VALUES
@@ -9335,7 +9335,7 @@ SELECT id(), i FROM tableA ORDER BY id();
 [5 15]
 [6 16]
 
--- 777 // https://github.com/cznic/ql/issues/72, different types have zero set intersetion.
+-- 777 // https://github.com/caivega/ql/issues/72, different types have zero set intersetion.
 BEGIN TRANSACTION;
 	CREATE TABLE tableA (i int);
 	INSERT INTO tableA VALUES
@@ -9360,7 +9360,7 @@ SELECT id(), i FROM tableA ORDER BY id();
 [5 15]
 [6 16]
 
--- 778 // https://github.com/cznic/ql/issues/72, different have zero set intersection but NOT makes the result true.
+-- 778 // https://github.com/caivega/ql/issues/72, different have zero set intersection but NOT makes the result true.
 BEGIN TRANSACTION;
 	CREATE TABLE tableA (i int);
 	INSERT INTO tableA VALUES
@@ -9379,7 +9379,7 @@ COMMIT;
 SELECT id(), i FROM tableA ORDER BY id();
 |"", "i"
 
--- 779 // https://github.com/cznic/ql/issues/72, invalid field type
+-- 779 // https://github.com/caivega/ql/issues/72, invalid field type
 BEGIN TRANSACTION;
 	CREATE TABLE tableA (i int);
 	INSERT INTO tableA VALUES
@@ -9398,7 +9398,7 @@ COMMIT;
 SELECT id(), i FROM tableA ORDER BY id();
 ||invalid field type
 
--- 780 // https://github.com/cznic/ql/issues/72, too many fields
+-- 780 // https://github.com/caivega/ql/issues/72, too many fields
 BEGIN TRANSACTION;
 	CREATE TABLE tableA (i int);
 	INSERT INTO tableA VALUES
@@ -9417,7 +9417,7 @@ COMMIT;
 SELECT id(), i FROM tableA ORDER BY id();
 ||mismatched field count
 
--- 781 // https://github.com/cznic/ql/issues/72, some NULL
+-- 781 // https://github.com/caivega/ql/issues/72, some NULL
 BEGIN TRANSACTION;
 	DROP TABLE IF EXISTS tableA;
 	DROP TABLE IF EXISTS tableB;
@@ -9443,7 +9443,7 @@ SELECT i FROM tableA WHERE id() IN (SELECT idA from tableB) ORDER BY id();
 [14]
 [16]
 
--- 782 // https://github.com/cznic/ql/issues/72, all NULL
+-- 782 // https://github.com/caivega/ql/issues/72, all NULL
 BEGIN TRANSACTION;
 	DROP TABLE IF EXISTS tableA;
 	DROP TABLE IF EXISTS tableB;
@@ -9464,7 +9464,7 @@ COMMIT;
 SELECT i FROM tableA WHERE id() IN (SELECT idA from tableB) ORDER BY id();
 |"i"
 
--- 783 // https://github.com/cznic/ql/issues/84
+-- 783 // https://github.com/caivega/ql/issues/84
 BEGIN TRANSACTION;
 	CREATE TABLE testA (
 		comment string,
@@ -9477,7 +9477,7 @@ SELECT * FROM testA;
 |"comment", "data"
 [c1 [110 101 119 86 97 108]]
 
--- 784 // https://github.com/cznic/ql/issues/84
+-- 784 // https://github.com/caivega/ql/issues/84
 BEGIN TRANSACTION;
 	CREATE TABLE testA (
 		comment string,
@@ -9490,7 +9490,7 @@ SELECT * FROM testA;
 |"comment", "data"
 [c1 [209 231 244 253 191 74 169 85 3 88 111 250 130 24 50 218 91 40 161 60 32 53 58 129 75 81 71 109 70 211 146 67 107 65 150 142 179 2 173 53 73 229 68 154 46 108 47 91 179 98 107 202 157 189 137 4 47 39 93 235 58 112 186 143 68 85 217 33 155 218 180 143 27 76 155 226 205 31 187 12 68 33 75 110 208 42 99 61 223 170 228 184 243 241 64 39 174 64 19 129 203 84 254 78 102 59 16 104 151 21 201 4 117 20 99 125 162 19 201 211 171 71 26 173 37 52 16 115 143 113 128 206 85 192 126 252 146 224 184 146 101 35 198 231 35 236 189 114 184 92 58 124 128 162 106 95 241 186 172 196 31 138 44 178 168 127 69 116 225 27 53 171 157 185 48 205 167 150 77 69 129 86 72 117 129 121 62 224 186 31 116 4 196 103 206 63 185 236 75 172 217 51 223 26 195 127 79 72 199 160 103 92 192 202 67 17 99 200 111 174 71 24 64 119 113 178 105 44 12 25 70 6 69 173 90 100 171 122 155 220 185 99 41 101 190 142 44 217 102 93 63 225 218 239 167 40 254]]
 
--- 785 // https://github.com/cznic/ql/issues/84
+-- 785 // https://github.com/caivega/ql/issues/84
 BEGIN TRANSACTION;
 	CREATE TABLE testA (
 		comment string,
@@ -9504,7 +9504,7 @@ SELECT * FROM testA ORDER BY comment;
 [c1 [110 101 119 86 97 108]]
 [c2 <nil>]
 
--- 786 // https://github.com/cznic/ql/issues/84
+-- 786 // https://github.com/caivega/ql/issues/84
 BEGIN TRANSACTION;
 	CREATE TABLE testA (
 		comment string,
@@ -9518,7 +9518,7 @@ SELECT * FROM testA ORDER BY comment;
 [c1 <nil>]
 [c2 [110 101 119 86 97 108]]
 
--- 787 // https://github.com/cznic/ql/issues/84
+-- 787 // https://github.com/caivega/ql/issues/84
 BEGIN TRANSACTION;
 	CREATE TABLE testA (
 		comment string,
@@ -9532,7 +9532,7 @@ SELECT * FROM testA ORDER BY comment;
 [c1 [110 101 119 86 97 108]]
 [c2 [110 101 119 86 97 108]]
 
--- 788 // https://github.com/cznic/ql/issues/84
+-- 788 // https://github.com/caivega/ql/issues/84
 BEGIN TRANSACTION;
 	CREATE TABLE testA (
 		comment string,
@@ -9546,7 +9546,7 @@ SELECT * FROM testA ORDER BY comment;
 [c1 [209 231 244 253 191 74 169 85 3 88 111 250 130 24 50 218 91 40 161 60 32 53 58 129 75 81 71 109 70 211 146 67 107 65 150 142 179 2 173 53 73 229 68 154 46 108 47 91 179 98 107 202 157 189 137 4 47 39 93 235 58 112 186 143 68 85 217 33 155 218 180 143 27 76 155 226 205 31 187 12 68 33 75 110 208 42 99 61 223 170 228 184 243 241 64 39 174 64 19 129 203 84 254 78 102 59 16 104 151 21 201 4 117 20 99 125 162 19 201 211 171 71 26 173 37 52 16 115 143 113 128 206 85 192 126 252 146 224 184 146 101 35 198 231 35 236 189 114 184 92 58 124 128 162 106 95 241 186 172 196 31 138 44 178 168 127 69 116 225 27 53 171 157 185 48 205 167 150 77 69 129 86 72 117 129 121 62 224 186 31 116 4 196 103 206 63 185 236 75 172 217 51 223 26 195 127 79 72 199 160 103 92 192 202 67 17 99 200 111 174 71 24 64 119 113 178 105 44 12 25 70 6 69 173 90 100 171 122 155 220 185 99 41 101 190 142 44 217 102 93 63 225 218 239 167 40 254]]
 [c2 <nil>]
 
--- 789 // https://github.com/cznic/ql/issues/84
+-- 789 // https://github.com/caivega/ql/issues/84
 BEGIN TRANSACTION;
 	CREATE TABLE testA (
 		comment string,
@@ -9560,7 +9560,7 @@ SELECT * FROM testA ORDER BY comment;
 [c1 <nil>]
 [c2 [209 231 244 253 191 74 169 85 3 88 111 250 130 24 50 218 91 40 161 60 32 53 58 129 75 81 71 109 70 211 146 67 107 65 150 142 179 2 173 53 73 229 68 154 46 108 47 91 179 98 107 202 157 189 137 4 47 39 93 235 58 112 186 143 68 85 217 33 155 218 180 143 27 76 155 226 205 31 187 12 68 33 75 110 208 42 99 61 223 170 228 184 243 241 64 39 174 64 19 129 203 84 254 78 102 59 16 104 151 21 201 4 117 20 99 125 162 19 201 211 171 71 26 173 37 52 16 115 143 113 128 206 85 192 126 252 146 224 184 146 101 35 198 231 35 236 189 114 184 92 58 124 128 162 106 95 241 186 172 196 31 138 44 178 168 127 69 116 225 27 53 171 157 185 48 205 167 150 77 69 129 86 72 117 129 121 62 224 186 31 116 4 196 103 206 63 185 236 75 172 217 51 223 26 195 127 79 72 199 160 103 92 192 202 67 17 99 200 111 174 71 24 64 119 113 178 105 44 12 25 70 6 69 173 90 100 171 122 155 220 185 99 41 101 190 142 44 217 102 93 63 225 218 239 167 40 254]]
 
--- 790 // https://github.com/cznic/ql/issues/84
+-- 790 // https://github.com/caivega/ql/issues/84
 BEGIN TRANSACTION;
 	CREATE TABLE testA (
 		comment string,
@@ -9748,38 +9748,38 @@ SELECT * FROM t;
 |"i", "b"
 [42 [97]]
 
--- 810 // https://github.com/cznic/ql/issues/85
+-- 810 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
         DROP TABLE __Column2;
 COMMIT;
 ||system table
 
--- 811 // https://github.com/cznic/ql/issues/85
+-- 811 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
         CREATE TABLE __Column2 (i int);
 COMMIT;
 ||system table
 
--- 812 // https://github.com/cznic/ql/issues/85
+-- 812 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
         UPDATE __Column2 SET i = 42;
 COMMIT;
 ||system table
 
--- 813 // https://github.com/cznic/ql/issues/85
+-- 813 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
         CREATE INDEX __Column2Default ON __Column2(DefaultExpr);
 COMMIT;
 ||system table
 
--- 814 // https://github.com/cznic/ql/issues/85
+-- 814 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 COMMIT;
 SELECT * FROM __Column2;
 ||does not exist
 
--- 815 // https://github.com/cznic/ql/issues/85
+-- 815 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int DEFAULT 42);
 COMMIT;
@@ -9787,7 +9787,7 @@ SELECT * FROM __Column2;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t i false  42]
 
--- 816 // https://github.com/cznic/ql/issues/85
+-- 816 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int NOT NULL);
 COMMIT;
@@ -9795,7 +9795,7 @@ SELECT * FROM __Column2;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t i true  ]
 
--- 817 // https://github.com/cznic/ql/issues/85
+-- 817 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int NOT NULL DEFAULT 43);
 COMMIT;
@@ -9803,7 +9803,7 @@ SELECT * FROM __Column2;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t i true  43]
 
--- 818 // https://github.com/cznic/ql/issues/85
+-- 818 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int i > 44);
 COMMIT;
@@ -9811,7 +9811,7 @@ SELECT * FROM __Column2;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t i false i > 44 ]
 
--- 819 // https://github.com/cznic/ql/issues/85
+-- 819 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int i > 45 DEFAULT 46);
 COMMIT;
@@ -9819,7 +9819,7 @@ SELECT * FROM __Column2;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t i false i > 45 46]
 
--- 820 // https://github.com/cznic/ql/issues/85
+-- 820 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	ALTER TABLE t ADD s string;
@@ -9827,7 +9827,7 @@ COMMIT;
 SELECT * FROM __Column2;
 ||does not exist
 
--- 821 // https://github.com/cznic/ql/issues/85
+-- 821 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 COMMIT;
@@ -9837,7 +9837,7 @@ COMMIT;
 SELECT * FROM __Column2;
 ||does not exist
 
--- 822 // https://github.com/cznic/ql/issues/85
+-- 822 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	ALTER TABLE t ADD s string DEFAULT "foo";
@@ -9846,7 +9846,7 @@ SELECT * FROM __Column2;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t s false  "foo"]
 
--- 823 // https://github.com/cznic/ql/issues/85
+-- 823 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 COMMIT;
@@ -9857,7 +9857,7 @@ SELECT * FROM __Column2;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t s false  "foo"]
 
--- 824 // https://github.com/cznic/ql/issues/85
+-- 824 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	ALTER TABLE t ADD s string NOT NULL;
@@ -9866,7 +9866,7 @@ SELECT * FROM __Column2;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t s true  ]
 
--- 825 // https://github.com/cznic/ql/issues/85
+-- 825 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 COMMIT;
@@ -9877,7 +9877,7 @@ SELECT * FROM __Column2;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t s true  ]
 
--- 826 // https://github.com/cznic/ql/issues/85
+-- 826 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42);
@@ -9886,7 +9886,7 @@ COMMIT;
 SELECT * FROM __Column2;
 ||existing data
 
--- 827 // https://github.com/cznic/ql/issues/85
+-- 827 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42);
@@ -9897,7 +9897,7 @@ COMMIT;
 SELECT * FROM __Column2;
 ||existing data
 
--- 828 // https://github.com/cznic/ql/issues/85
+-- 828 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42);
@@ -9906,7 +9906,7 @@ COMMIT;
 SELECT * FROM __Column2;
 ||existing data
 
--- 829 // https://github.com/cznic/ql/issues/85
+-- 829 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES(42);
@@ -9918,7 +9918,7 @@ COMMIT;
 SELECT * FROM __Column2;
 ||existing data
 
--- 830 // https://github.com/cznic/ql/issues/85
+-- 830 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int DEFAULT 42, s string DEFAULT 43);
 COMMIT;
@@ -9927,7 +9927,7 @@ SELECT * FROM __Column2 ORDER BY Name;
 [t i false  42]
 [t s false  43]
 
--- 831 // https://github.com/cznic/ql/issues/85
+-- 831 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int DEFAULT 42, s string DEFAULT 43);
 	ALTER TABLE t DROP COLUMN s;
@@ -9936,7 +9936,7 @@ SELECT * FROM __Column2 ORDER BY Name;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t i false  42]
 
--- 832 // https://github.com/cznic/ql/issues/85
+-- 832 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int DEFAULT 42, s string DEFAULT 43);
 COMMIT;
@@ -9947,7 +9947,7 @@ SELECT * FROM __Column2 ORDER BY Name;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t i false  42]
 
--- 833 // https://github.com/cznic/ql/issues/85
+-- 833 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int DEFAULT 42, s string DEFAULT 43);
 	ALTER TABLE t DROP COLUMN i;
@@ -9956,7 +9956,7 @@ SELECT * FROM __Column2 ORDER BY Name;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t s false  43]
 
--- 834 // https://github.com/cznic/ql/issues/85
+-- 834 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int DEFAULT 42, s string DEFAULT 43);
 COMMIT;
@@ -9967,7 +9967,7 @@ SELECT * FROM __Column2 ORDER BY Name;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t s false  43]
 
--- 835 // https://github.com/cznic/ql/issues/85
+-- 835 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int NOT NULL);
 	INSERT INTO t VALUES(42);
@@ -9976,7 +9976,7 @@ SELECT * FROM __Column2 ORDER BY Name;
 |"TableName", "Name", "NotNull", "ConstraintExpr", "DefaultExpr"
 [t i true  ]
 
--- 836 // https://github.com/cznic/ql/issues/85
+-- 836 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int, c int);
 	INSERT INTO t VALUES(NULL, NULL, NULL);
@@ -9985,7 +9985,7 @@ SELECT * FROM t;
 |"a", "b", "c"
 [<nil> <nil> <nil>]
 
--- 837 // https://github.com/cznic/ql/issues/85
+-- 837 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int NOT NULL, c int);
 	INSERT INTO t VALUES(NULL, 42, NULL);
@@ -9994,7 +9994,7 @@ SELECT * FROM t;
 |"a", "b", "c"
 [<nil> 42 <nil>]
 
--- 838 // https://github.com/cznic/ql/issues/85
+-- 838 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int NOT NULL, c int);
 	INSERT INTO t VALUES(NULL, NULL, NULL);
@@ -10002,7 +10002,7 @@ COMMIT;
 SELECT * FROM t;
 ||NOT NULL
 
--- 839 // https://github.com/cznic/ql/issues/85
+-- 839 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int DEFAULT 42, c int);
 	INSERT INTO t VALUES(NULL, NULL, NULL);
@@ -10011,7 +10011,7 @@ SELECT * FROM t;
 |"a", "b", "c"
 [<nil> 42 <nil>]
 
--- 840 // https://github.com/cznic/ql/issues/85
+-- 840 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > 42, c int);
 	INSERT INTO t VALUES(NULL, NULL, NULL);
@@ -10019,7 +10019,7 @@ COMMIT;
 SELECT * FROM t;
 ||constraint violation
 
--- 841 // https://github.com/cznic/ql/issues/85
+-- 841 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > 42, c int);
 	INSERT INTO t VALUES(NULL, 42, NULL);
@@ -10027,7 +10027,7 @@ COMMIT;
 SELECT * FROM t;
 ||constraint violation
 
--- 842 // https://github.com/cznic/ql/issues/85
+-- 842 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > 42, c int);
 	INSERT INTO t VALUES(NULL, 43, NULL);
@@ -10036,7 +10036,7 @@ SELECT * FROM t;
 |"a", "b", "c"
 [<nil> 43 <nil>]
 
--- 843 // https://github.com/cznic/ql/issues/85
+-- 843 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > 42 DEFAULT 42, c int);
 	INSERT INTO t VALUES(NULL, NULL, NULL);
@@ -10044,7 +10044,7 @@ COMMIT;
 SELECT * FROM t;
 ||constraint violation
 
--- 844 // https://github.com/cznic/ql/issues/85
+-- 844 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > 42 DEFAULT 43, c int);
 	INSERT INTO t VALUES(NULL, NULL, NULL);
@@ -10053,7 +10053,7 @@ SELECT * FROM t;
 |"a", "b", "c"
 [<nil> 43 <nil>]
 
--- 845 // https://github.com/cznic/ql/issues/85
+-- 845 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > 42 DEFAULT 43, c int);
 	INSERT INTO t VALUES(NULL, 42, NULL);
@@ -10061,7 +10061,7 @@ COMMIT;
 SELECT * FROM t;
 ||constraint violation
 
--- 846 // https://github.com/cznic/ql/issues/85
+-- 846 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > 42 DEFAULT 430, c int);
 	INSERT INTO t VALUES(NULL, 43, NULL);
@@ -10070,7 +10070,7 @@ SELECT * FROM t;
 |"a", "b", "c"
 [<nil> 43 <nil>]
 
--- 847 // https://github.com/cznic/ql/issues/85
+-- 847 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > a && b < c, c int);
 	INSERT INTO t VALUES(1, 2, 3);
@@ -10079,7 +10079,7 @@ SELECT * FROM t;
 |"a", "b", "c"
 [1 2 3]
 
--- 848 // https://github.com/cznic/ql/issues/85
+-- 848 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > a && b < c, c int);
 	INSERT INTO t VALUES(1, 1, 3);
@@ -10087,7 +10087,7 @@ COMMIT;
 SELECT * FROM t;
 ||constraint violation
 
--- 849 // https://github.com/cznic/ql/issues/85
+-- 849 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > a && b < c, c int);
 	INSERT INTO t VALUES(1, 3, 3);
@@ -10095,7 +10095,7 @@ COMMIT;
 SELECT * FROM t;
 ||constraint violation
 
--- 850 // https://github.com/cznic/ql/issues/85
+-- 850 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > a && b < c DEFAULT (a+c)/2, c int);
 	INSERT INTO t VALUES(1, NULL, 3);
@@ -10104,7 +10104,7 @@ SELECT * FROM t;
 |"a", "b", "c"
 [1 2 3]
 
--- 851 // https://github.com/cznic/ql/issues/85
+-- 851 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > a && b < c DEFAULT (a+c)/2, c int);
 	INSERT INTO t VALUES(1, 1, 3);
@@ -10112,7 +10112,7 @@ COMMIT;
 SELECT * FROM t;
 ||constraint violation
 
--- 852 // https://github.com/cznic/ql/issues/85
+-- 852 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int b > a && b < c DEFAULT (a+c)/2, c int);
 	INSERT INTO t VALUES(1, 3, 3);
@@ -10120,7 +10120,7 @@ COMMIT;
 SELECT * FROM t;
 ||constraint violation
 
--- 853 // https://github.com/cznic/ql/issues/85
+-- 853 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE department (
 		DepartmentName string DepartmentName IN ("HQ", "R/D", "Lab", "HR")
@@ -10131,7 +10131,7 @@ COMMIT;
 SELECT * FROM department;
 ||constraint violation
 
--- 854 // https://github.com/cznic/ql/issues/85
+-- 854 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE department (
 		DepartmentName string DepartmentName IN ("HQ", "R/D", "Lab", "HR")
@@ -10143,7 +10143,7 @@ SELECT * FROM department;
 |"DepartmentName"
 [HQ]
 
--- 855 // https://github.com/cznic/ql/issues/85
+-- 855 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE department (
 		DepartmentName string DepartmentName IN ("HQ", "R/D", "Lab", "HR")
@@ -10155,7 +10155,7 @@ SELECT * FROM department;
 |"DepartmentName"
 [HQ]
 
--- 856 // https://github.com/cznic/ql/issues/85
+-- 856 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE department (
 		DepartmentName string DepartmentName IN ("HQ", "R/D", "Lab", "HR")
@@ -10166,7 +10166,7 @@ COMMIT;
 SELECT * FROM department;
 ||constraint violation
 
--- 857 // https://github.com/cznic/ql/issues/85
+-- 857 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE department (
 		DepartmentName string DepartmentName IN ("HQ", "R/D", "Lab", "HR")
@@ -10178,7 +10178,7 @@ SELECT * FROM department;
 |"DepartmentName"
 [R/D]
 
--- 858 // https://github.com/cznic/ql/issues/85
+-- 858 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (
 		TimeStamp time TimeStamp <= now() && since(TimeStamp) < duration("10s") DEFAULT now(),
@@ -10189,7 +10189,7 @@ SELECT TimeStamp IS NOT NULL FROM t;
 |""
 [true]
 
--- 859 // https://github.com/cznic/ql/issues/85
+-- 859 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (
 		TimeStamp time TimeStamp <= now() && since(TimeStamp) < duration("10s") DEFAULT now(),
@@ -10199,7 +10199,7 @@ COMMIT;
 SELECT TimeStamp IS NOT NULL FROM t;
 ||constraint violation
 
--- 860 // https://github.com/cznic/ql/issues/85
+-- 860 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (
 		TimeStamp time TimeStamp <= now() && since(TimeStamp) < duration("10s") DEFAULT now(),
@@ -10209,7 +10209,7 @@ COMMIT;
 SELECT TimeStamp IS NOT NULL FROM t;
 ||constraint violation
 
--- 861 // https://github.com/cznic/ql/issues/85
+-- 861 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (
 		TimeStamp time TimeStamp <= now() && since(TimeStamp) < duration("10s") DEFAULT now(),
@@ -10220,7 +10220,7 @@ SELECT TimeStamp IS NOT NULL FROM t;
 |""
 [true]
 
--- 862 // https://github.com/cznic/ql/issues/85
+-- 862 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (
 		TimeStamp time TimeStamp <= now() && since(TimeStamp) < duration("10s") DEFAULT now(),
@@ -10231,7 +10231,7 @@ SELECT TimeStamp IS NOT NULL FROM t;
 |""
 [true]
 
--- 863 // https://github.com/cznic/ql/issues/85
+-- 863 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (
 		Event string Event != "" && Event LIKE "[0-9]+:[ \t]+.*",
@@ -10241,7 +10241,7 @@ COMMIT;
 SELECT Event FROM t;
 ||constraint violation
 
--- 864 // https://github.com/cznic/ql/issues/85
+-- 864 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (
 		Event string Event != "" && Event LIKE "[0-9]+:[ \t]+.*",
@@ -10252,7 +10252,7 @@ SELECT Event FROM t;
 |"Event"
 [123: foo]
 
--- 865 // https://github.com/cznic/ql/issues/85
+-- 865 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int, c int);
 	CREATE TABLE s (i int);
@@ -10267,7 +10267,7 @@ SELECT b FROM t ORDER BY b DESC;
 [1]
 [<nil>]
 
--- 866 // https://github.com/cznic/ql/issues/85
+-- 866 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int NOT NULL, c int);
 	CREATE TABLE s (i int);
@@ -10281,7 +10281,7 @@ SELECT b FROM t ORDER BY b DESC;
 [2]
 [1]
 
--- 867 // https://github.com/cznic/ql/issues/85
+-- 867 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int NOT NULL, c int);
 	CREATE TABLE s (i int);
@@ -10291,7 +10291,7 @@ COMMIT;
 SELECT i FROM t ORDER BY b DESC;
 ||NOT NULL
 
--- 868 // https://github.com/cznic/ql/issues/85
+-- 868 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int, c int);
 	INSERT INTO t(b) VALUES (10), (20), (30);
@@ -10303,7 +10303,7 @@ SELECT b FROM t ORDER BY b DESC;
 [10]
 [<nil>]
 
--- 869 // https://github.com/cznic/ql/issues/85
+-- 869 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int NOT NULL, c int);
 	INSERT INTO t(b) VALUES (10), (20), (30);
@@ -10312,7 +10312,7 @@ COMMIT;
 SELECT b FROM t ORDER BY b DESC;
 ||NOT NULL
 
--- 870 // https://github.com/cznic/ql/issues/85
+-- 870 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int, b int NOT NULL DEFAULT 42, c int);
 	INSERT INTO t(b) VALUES (10), (20), (30);
@@ -10324,7 +10324,7 @@ SELECT b FROM t ORDER BY b DESC;
 [30]
 [10]
 
--- S 871 // https://github.com/cznic/ql/issues/91
+-- S 871 // https://github.com/caivega/ql/issues/91
 SELECT *
 FROM employee 
 LEFT OUTER JOIN department
@@ -10338,7 +10338,7 @@ ORDER BY employee.LastName;
 [Smith 34 34 Clerical]
 [Williams <nil> <nil> <nil>]
 
--- S 872 // https://github.com/cznic/ql/issues/91
+-- S 872 // https://github.com/caivega/ql/issues/91
 SELECT *
 FROM employee 
 LEFT JOIN department
@@ -10352,7 +10352,7 @@ ORDER BY employee.LastName;
 [Smith 34 34 Clerical]
 [Williams <nil> <nil> <nil>]
 
--- S 873 // https://github.com/cznic/ql/issues/91
+-- S 873 // https://github.com/caivega/ql/issues/91
 SELECT *
 FROM employee 
 RIGHT OUTER JOIN department
@@ -10366,7 +10366,7 @@ ORDER BY employee.LastName;
 [Robinson 34 34 Clerical]
 [Smith 34 34 Clerical]
 
--- S 874 // https://github.com/cznic/ql/issues/91
+-- S 874 // https://github.com/caivega/ql/issues/91
 SELECT *
 FROM employee 
 RIGHT JOIN department
@@ -10380,14 +10380,14 @@ ORDER BY employee.LastName;
 [Robinson 34 34 Clerical]
 [Smith 34 34 Clerical]
 
--- S 875 // https://github.com/cznic/ql/issues/91
+-- S 875 // https://github.com/caivega/ql/issues/91
 SELECT *
 FROM employee 
 FULL OUTER JOIN department
 ON employee.DepartmentID == none;
 ||unknown
 
--- S 876 // https://github.com/cznic/ql/issues/91
+-- S 876 // https://github.com/caivega/ql/issues/91
 SELECT *
 FROM employee 
 FULL JOIN department
@@ -10406,7 +10406,7 @@ SELECT * FROM t1 LEFT JOIN t2 ON t1.s1 == t2.s1;
 [1 <nil>]
 [1 <nil>]
 
--- 878 // https://github.com/cznic/ql/issues/91
+-- 878 // https://github.com/caivega/ql/issues/91
 BEGIN TRANSACTION;
 	CREATE TABLE a (i int, s string);
 	INSERT INTO a VALUES (1, "a"), (3, "a"), (NULL, "an1"), (NULL, "an2");
@@ -10421,7 +10421,7 @@ ORDER BY a.s, a.i, b.s, b.i;
 [<nil> an1 <nil> <nil>]
 [<nil> an2 <nil> <nil>]
 
--- 879 // https://github.com/cznic/ql/issues/91
+-- 879 // https://github.com/caivega/ql/issues/91
 BEGIN TRANSACTION;
 	CREATE TABLE a (i int, s string);
 	INSERT INTO a VALUES (1, "a"), (3, "a"), (NULL, "an1"), (NULL, "an2");
@@ -10436,7 +10436,7 @@ ORDER BY a.s, a.i, b.s, b.i;
 [<nil> <nil> <nil> bn2]
 [3 a 3 b]
 
--- 880 // https://github.com/cznic/ql/issues/91
+-- 880 // https://github.com/caivega/ql/issues/91
 BEGIN TRANSACTION;
 	CREATE TABLE a (i int, s string);
 	INSERT INTO a VALUES (1, "a"), (3, "a"), (NULL, "an1"), (NULL, "an2");
@@ -10451,7 +10451,7 @@ ORDER BY a.s, a.i, b.s, b.i;
 [<nil> bn2 <nil> <nil>]
 [3 b 3 a]
 
--- 881 // https://github.com/cznic/ql/issues/91
+-- 881 // https://github.com/caivega/ql/issues/91
 BEGIN TRANSACTION;
 	CREATE TABLE a (i int, s string);
 	INSERT INTO a VALUES (1, "a"), (3, "a"), (NULL, "an1"), (NULL, "an2");
@@ -10466,7 +10466,7 @@ ORDER BY a.s, a.i, b.s, b.i;
 [<nil> <nil> <nil> an1]
 [<nil> <nil> <nil> an2]
 
--- 882 // https://github.com/cznic/ql/issues/91
+-- 882 // https://github.com/caivega/ql/issues/91
 BEGIN TRANSACTION;
 	CREATE TABLE a (i int, s string);
 	INSERT INTO a VALUES (1, "a"), (3, "a");
@@ -10480,7 +10480,7 @@ ORDER BY a.s, a.i, b.s, b.i;
 [1 a <nil> <nil>]
 [3 a 3 b]
 
--- 883 // https://github.com/cznic/ql/issues/91
+-- 883 // https://github.com/caivega/ql/issues/91
 BEGIN TRANSACTION;
 	CREATE TABLE a (i int, s string);
 	INSERT INTO a VALUES (1, "a"), (3, "a");
@@ -10494,7 +10494,7 @@ ORDER BY a.s, a.i, b.s, b.i;
 [1 a <nil> <nil>]
 [3 a 3 b]
 
--- S 884 // https://github.com/cznic/ql/issues/91
+-- S 884 // https://github.com/caivega/ql/issues/91
 SELECT *
 FROM employee 
 FULL JOIN department
@@ -10509,7 +10509,7 @@ ORDER BY employee.LastName;
 [Smith 34 34 Clerical]
 [Williams <nil> <nil> <nil>]
 
--- S 885 // https://github.com/cznic/ql/issues/91
+-- S 885 // https://github.com/caivega/ql/issues/91
 SELECT *
 FROM employee 
 FULL OUTER JOIN department
@@ -10524,7 +10524,7 @@ ORDER BY employee.LastName;
 [Smith 34 34 Clerical]
 [Williams <nil> <nil> <nil>]
 
--- S 886 // https://github.com/cznic/ql/issues/91
+-- S 886 // https://github.com/caivega/ql/issues/91
 BEGIN TRANSACTION;
 	CREATE TABLE t (s string);
 	INSERT INTO t VALUES ("A"), ("B");
@@ -10548,7 +10548,7 @@ ORDER BY t.s, employee.LastName;
 [B Smith 34 34 Clerical]
 [B Williams <nil> <nil> <nil>]
 
--- S 887 // https://github.com/cznic/ql/issues/91
+-- S 887 // https://github.com/caivega/ql/issues/91
 BEGIN TRANSACTION;
 	CREATE TABLE t (s string);
 	INSERT INTO t VALUES ("A"), ("B");
@@ -10571,7 +10571,7 @@ ORDER BY t.s, employee.LastName;
 [B Robinson 34 34 Clerical]
 [B Smith 34 34 Clerical]
 
--- S 888 // https://github.com/cznic/ql/issues/91
+-- S 888 // https://github.com/caivega/ql/issues/91
 BEGIN TRANSACTION;
 	CREATE TABLE t (s string);
 	INSERT INTO t VALUES ("A"), ("B");
@@ -10596,7 +10596,7 @@ ORDER BY t.s, employee.LastName;
 [B Smith 34 34 Clerical]
 [B Williams <nil> <nil> <nil>]
 
--- 889 // https://github.com/cznic/ql/issues/85
+-- 889 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t1 (a int, b int, c int);
 	CREATE TABLE t2 (a int, b int NOT NULL, c int);
@@ -10614,7 +10614,7 @@ SELECT * FROM __Table WHERE !hasPrefix(Name, "__") ORDER BY Name;
 [t5 CREATE TABLE t5 (a int64, b int64 NOT NULL DEFAULT (a + c) / 2, c int64);]
 [t6 CREATE TABLE t6 (a int64, b int64 DEFAULT (a + c) / 2, c int64);]
 
--- 890 // https://github.com/cznic/ql/issues/85
+-- 890 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t1 (a int, b int, c int);
 	CREATE TABLE t2 (a int, b int NOT NULL, c int);
@@ -10631,7 +10631,7 @@ SELECT * FROM __Column2 ORDER BY TableName, Name;
 [t5 b true  (a + c) / 2]
 [t6 b false  (a + c) / 2]
 
--- 891 // https://github.com/cznic/ql/issues/85
+-- 891 // https://github.com/caivega/ql/issues/85
 BEGIN TRANSACTION;
 	CREATE TABLE t1 (a int, b int, c int);
 	CREATE TABLE t2 (a int, b int NOT NULL, c int);
@@ -15573,7 +15573,7 @@ SELECT * FROM t WHERE i > 12 && i BETWEEN 10 AND 20 AND i < 42;
 [15]
 [16]
 
--- 1336 // https://github.com/cznic/ql/issues/102
+-- 1336 // https://github.com/caivega/ql/issues/102
 BEGIN TRANSACTION;
 	CREATE TABLE t (i byte);
 	INSERT INTO t VALUES (NULL);
@@ -15582,7 +15582,7 @@ SELECT * FROM t;
 |"i"
 [<nil>]
 
--- 1337 // https://github.com/cznic/ql/issues/103
+-- 1337 // https://github.com/caivega/ql/issues/103
 BEGIN TRANSACTION;
 	CREATE TABLE t (t time);
 	INSERT INTO t VALUES (date(2015, 6, 11, 11, 7, 50, 0, "UTC"));
@@ -15632,7 +15632,7 @@ SELECT count() FROM t;
 |""
 [3]
 
--- 1343 // https://github.com/cznic/ql/issues/118
+-- 1343 // https://github.com/caivega/ql/issues/118
 BEGIN TRANSACTION;
 	CREATE TABLE foo (bar int, when time);
 	INSERT INTO foo VALUES (1, parseTime("2006-01-02", "3016-02-01"));
@@ -15642,7 +15642,7 @@ SELECT * FROM foo WHERE when > now();
 |"bar", "when"
 [1 3016-02-01 00:00:00 +0000 UTC]
 
--- 1344 // https://github.com/cznic/ql/issues/118
+-- 1344 // https://github.com/caivega/ql/issues/118
 BEGIN TRANSACTION;
 	CREATE TABLE foo (bar int, when time);
 	INSERT INTO foo VALUES (1, parseTime("2006-01-02", "2017-02-01"));
@@ -15652,7 +15652,7 @@ SELECT * FROM foo WHERE when > date(2017, 1, 31, 23, 59, 59, 999999999, "UTC");
 |"bar", "when"
 [1 2017-02-01 00:00:00 +0000 UTC]
 
--- 1345 // https://github.com/cznic/ql/issues/118
+-- 1345 // https://github.com/caivega/ql/issues/118
 BEGIN TRANSACTION;
 	CREATE TABLE foo (bar int, when time);
 	INSERT INTO foo VALUES (1, parseTime("2006-01-02", "2017-02-01"));
@@ -15661,7 +15661,7 @@ COMMIT;
 SELECT * FROM foo WHERE when > date(2017, 2, 1, 0, 0, 0, 0, "UTC");
 |"bar", "when"
 
--- 1346 // https://github.com/cznic/ql/issues/131
+-- 1346 // https://github.com/caivega/ql/issues/131
 BEGIN TRANSACTION;
 	CREATE TABLE t (c1 int, c2 string);
 	INSERT INTO t VALUES (1, "a");
@@ -15671,12 +15671,12 @@ SELECT * FROM t WHERE c1 = 1;
 |"c1", "c2"
 [1 a]
 
--- 1347 // https://github.com/cznic/ql/issues/155
+-- 1347 // https://github.com/caivega/ql/issues/155
 SELECT 42;
 |""
 [42]
 
--- 1348 // https://github.com/cznic/ql/issues/155, see also #1353
+-- 1348 // https://github.com/caivega/ql/issues/155, see also #1353
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES (1);
@@ -15689,14 +15689,14 @@ SELECT * FROM t WHERE EXISTS (SELECT * FROM t WHERE i == 2) ORDER BY i;
 [2]
 [3]
 
--- 1349 // https://github.com/cznic/ql/issues/155
+-- 1349 // https://github.com/caivega/ql/issues/155
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 COMMIT;
 SELECT * FROM t WHERE EXISTS (SELECT * FROM t WHERE i == 2);
 |"i"
 
--- 1350 // https://github.com/cznic/ql/issues/155
+-- 1350 // https://github.com/caivega/ql/issues/155
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES (1);
@@ -15706,7 +15706,7 @@ COMMIT;
 SELECT * FROM t WHERE EXISTS (SELECT * FROM t WHERE i == 4);
 |"i"
 
--- 1351 // https://github.com/cznic/ql/issues/155
+-- 1351 // https://github.com/caivega/ql/issues/155
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES (1);
@@ -15716,7 +15716,7 @@ COMMIT;
 SELECT * FROM t WHERE NOT EXISTS (SELECT * FROM t WHERE i == 2);
 |"i"
 
--- 1352 // https://github.com/cznic/ql/issues/155
+-- 1352 // https://github.com/caivega/ql/issues/155
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES (1);
@@ -15729,7 +15729,7 @@ SELECT * FROM t WHERE NOT EXISTS (SELECT * FROM t WHERE i == 4) ORDER BY i;
 [2]
 [3]
 
--- 1353 // https://github.com/cznic/ql/issues/155, illustrates why #1348 should return 3 rows
+-- 1353 // https://github.com/caivega/ql/issues/155, illustrates why #1348 should return 3 rows
 BEGIN TRANSACTION;
 	CREATE TABLE t (i int);
 	INSERT INTO t VALUES (1);
@@ -15742,7 +15742,7 @@ SELECT * FROM t WHERE true ORDER BY i
 [2]
 [3]
 
--- 1354 // https://github.com/cznic/ql/issues/176
+-- 1354 // https://github.com/caivega/ql/issues/176
 BEGIN TRANSACTION;
 	CREATE TABLE t (á int);
 	INSERT INTO t VALUES (1);
@@ -15755,7 +15755,7 @@ SELECT * FROM t ORDER BY á
 [2]
 [3]
 
--- 1355 // https://github.com/cznic/ql/issues/187
+-- 1355 // https://github.com/caivega/ql/issues/187
 BEGIN TRANSACTION;
 	CREATE TABLE t (b string, c string);
 	ALTER TABLE t DROP COLUMN b;
@@ -15764,7 +15764,7 @@ COMMIT;
 SELECT * FROM t;
 |"c"
 
--- 1356 // https://github.com/cznic/ql/issues/188
+-- 1356 // https://github.com/caivega/ql/issues/188
 BEGIN TRANSACTION;
     CREATE TABLE t (b string, c string);
     CREATE INDEX bx ON t (b);
@@ -15776,7 +15776,7 @@ SELECT c FROM t WHERE c = "abc";
 |"c"
 [abc]
 
--- 1357 // https://github.com/cznic/ql/issues/208
+-- 1357 // https://github.com/caivega/ql/issues/208
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int not null, b int not null);
 	INSERT INTO t (a, b) VALUES (0, 4), (1, 5);
@@ -15786,7 +15786,7 @@ SELECT DISTINCT a FROM t WHERE a NOT IN (SELECT a FROM t WHERE b = 9)
 [0]
 [1]
 
--- 1358 // https://github.com/cznic/ql/issues/207
+-- 1358 // https://github.com/caivega/ql/issues/207
 BEGIN TRANSACTION;
 	CREATE TABLE t (a int not null, b int not null, c int not null);
 	CREATE INDEX t_a_b on t (a, b);

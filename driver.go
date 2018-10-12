@@ -149,7 +149,7 @@ func (d *sqlDriver) lock() func() {
 //
 // The name supported URL parameters:
 //
-//	headroom	Size of the WAL headroom. See https://github.com/cznic/ql/issues/140.
+//	headroom	Size of the WAL headroom. See https://github.com/caivega/ql/issues/140.
 func (d *sqlDriver) Open(name string) (driver.Conn, error) {
 	switch {
 	case d == fileDriver:
